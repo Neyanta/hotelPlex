@@ -1,0 +1,16 @@
+#adminContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#adminCard {
+  height: 430px;
+  width: 400px;
+  padding: 10px;
+  border-radius: 30px;
+  box-shadow: 10px 10px BLACK;
+}
+#adminButton {
+  background-color: #11caca;
+}
