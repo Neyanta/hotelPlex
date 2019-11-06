@@ -15,18 +15,6 @@ import Hotel from "./Hotel";
 
 class App extends React.Component {
   render() {
-    const PrivateRoute = ({ component: Component, ...rest }) => (
-      <Route
-        {...rest}
-        render={props =>
-          this.props.loggedIn === true ? (
-            <Component {...props} />
-          ) : (
-            <Redirect to="/" />
-          )
-        }
-      />
-    );
     const PrivateRouteAdmin = ({ component: Component, ...rest }) => (
       <Route
         {...rest}
@@ -45,9 +33,9 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Login} />
-            <PrivateRoute path="/home" component={SearchPage} />
-            <PrivateRoute path="/hotels" component={HotelsContainer} />
-            <PrivateRoute path="/hotel" component={Hotel} />
+            <Route path="/home" component={SearchPage} />
+            <Route path="/hotels" component={HotelsContainer} />
+            <Route path="/hotel" component={Hotel} />
             <Route exact path="/adminlogin" component={AdminLogin} />
             <PrivateRouteAdmin exact path="/admin" component={Admin} />
           </Switch>
@@ -58,7 +46,7 @@ class App extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loginReducer.checkLoggedIn,
+    loggedIn: state.loginReducer.loggedIn,
     adminLoggedIn: state.loginReducer.adminLoggedIn
   };
 };

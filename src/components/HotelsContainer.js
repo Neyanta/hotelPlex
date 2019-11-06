@@ -4,6 +4,7 @@ import InputRange from "react-input-range";
 import Switch from "react-switch";
 import Navbar from "./Navbar";
 import ViewHotels from "./ViewHotels";
+import { Redirect } from "react-router-dom";
 import Footer from "./Footer";
 import {
   fetchingHotels,
@@ -81,6 +82,10 @@ class HotelsContainer extends Component {
   };
 
   render() {
+    var loggedIn = this.props.loggedIn;
+    if (!loggedIn) {
+      return <Redirect to="/" />;
+    }
     return (
       <div id="container">
         <Navbar />
@@ -319,7 +324,8 @@ class HotelsContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    hotels: state.searchReducer.hotels
+    hotels: state.searchReducer.hotels,
+    loggedIn: state.loginReducer.loggedIn
   };
 };
 

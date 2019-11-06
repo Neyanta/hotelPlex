@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
+import { Redirect } from "react-router-dom";
 import PaymentOutlinedIcon from "@material-ui/icons/PaymentOutlined";
 import StarIcon from "@material-ui/icons/Star";
 import WifiIcon from "@material-ui/icons/Wifi";
@@ -52,6 +53,10 @@ class Hotel extends Component {
     const stars = [...Array(n)].map((e, i) => (
       <StarIcon key={i} style={{ color: "#fbb710" }} />
     ));
+    var loggedIn = this.props.loggedIn;
+    if (!loggedIn) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <Navbar />
@@ -330,10 +335,12 @@ class Hotel extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     hotel: state.hotelReducer.hotel,
-    customerName: JSON.parse(state.loginReducer.loggedIn).name
+    customerName: JSON.parse(state.loginReducer.loggedIn).name,
+    loggedIn: state.loginReducer.loggedIn
   };
 };
 export default connect(mapStateToProps)(Hotel);

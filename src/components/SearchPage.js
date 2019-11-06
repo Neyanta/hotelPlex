@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 import { fetchingHotels, fetchedHotels } from "../actions/searchActions";
 import "../assets/styles/searchPage.css";
 
-
 class SearchPage extends Component {
   constructor(props) {
     super(props);
@@ -36,11 +35,14 @@ class SearchPage extends Component {
   };
 
   render() {
+    var loggedIn = this.props.loggedIn;
+    if (!loggedIn) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         {this.renderRedirect()}
         <div className="section-top">
-        
           <div className="content">
             <h1>Search Hotels for your destination </h1>
             <div className="locationSearchBar">
@@ -73,6 +75,13 @@ class SearchPage extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.loginReducer.loggedIn
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     search: input => {
@@ -85,6 +94,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchPage);

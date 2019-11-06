@@ -7,6 +7,7 @@ import StarIcon from "@material-ui/icons/Star";
 import RoomOutlinedIcon from "@material-ui/icons/RoomOutlined";
 import "../assets/styles/ViewHotels.css";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 class ViewHotels extends Component {
   handleClick = id => {
@@ -14,6 +15,10 @@ class ViewHotels extends Component {
     this.props.viewHotel(singleHotel);
   };
   render() {
+    var loggedIn = this.props.loggedIn;
+    if (!loggedIn) {
+      return <Redirect to="/" />;
+    }
     const hotelComponents = this.props.fetched ? (
       this.props.hotels.map(hotel => {
         var n = hotel.stars;
@@ -97,7 +102,8 @@ class ViewHotels extends Component {
 const mapStateToProps = state => {
   return {
     hotels: state.searchReducer.filteredHotels,
-    fetched: state.searchReducer.fetched
+    fetched: state.searchReducer.fetched,
+    loggedIn: state.loginReducer.loggedIn
   };
 };
 const mapDispatchToProps = dispatch => {

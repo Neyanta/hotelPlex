@@ -1,5 +1,5 @@
 const initialState = {
-  loggedIn: "",
+  loggedIn: localStorage.getItem("user"),
   facebookLoggedIn: "",
   checkLoggedIn: false,
   adminLoggedIn: false
